@@ -47,6 +47,68 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun onEqual(view: View){
+        if(lastNumeric){
+            var tvValue = tvInput?.text.toString()
+            var prefix = ""
+            try {
+                if(tvValue.startsWith("-")){
+                    prefix = "-"
+                    //"-99"
+                    //"99"
+                    tvValue = tvValue.substring(1)
+                }
+                if (tvValue.contains("-")){
+                    var splitValue = tvValue.split("-")
+                    var firstValue = splitValue[0] // 100
+                    var secondValue = splitValue[1] // 1
+                    if (prefix.isNotEmpty()){
+                        firstValue = prefix + firstValue
+                    }
+                    var result = firstValue.toDouble() - secondValue.toDouble()
+                    tvInput?.text = removeZeroAfterDot(result.toString())
+                } else if (tvValue.contains("+")){
+                    var splitValue = tvValue.split("+")
+                    var firstValue = splitValue[0] // 100
+                    var secondValue = splitValue[1] // 1
+                    if (prefix.isNotEmpty()){
+                        firstValue = prefix + firstValue
+                    }
+                    var result = firstValue.toDouble() + secondValue.toDouble()
+                    tvInput?.text = removeZeroAfterDot(result.toString())
+                } else if (tvValue.contains("*")){
+                    var splitValue = tvValue.split("*")
+                    var firstValue = splitValue[0] // 100
+                    var secondValue = splitValue[1] // 1
+                    if (prefix.isNotEmpty()){
+                        firstValue = prefix + firstValue
+                    }
+                    var result = firstValue.toDouble() * secondValue.toDouble()
+                    tvInput?.text = removeZeroAfterDot(result.toString())
+                } else if (tvValue.contains("/")){
+                    var splitValue = tvValue.split("/")
+                    var firstValue = splitValue[0] // 100
+                    var secondValue = splitValue[1] // 1
+                    if (prefix.isNotEmpty()){
+                        firstValue = prefix + firstValue
+                    }
+                    var result = firstValue.toDouble() / secondValue.toDouble()
+                    tvInput?.text = removeZeroAfterDot(result.toString())
+                }
+            } catch (e: ArithmeticException){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun removeZeroAfterDot(result: String): String{
+        var value = result
+        if(value.contains(".0"))
+            value = value.substring(0,value.length-2)
+
+        return value
+    }
+
     private fun isOperatorAdded(value: String): Boolean{
         return if(value.startsWith("-")){
             false
