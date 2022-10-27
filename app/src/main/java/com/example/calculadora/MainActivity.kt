@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun removeZeroAfterDot(result: String): String{
         var value = result
         if(value.contains(".0"))
